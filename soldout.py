@@ -31,12 +31,12 @@ def build_response(session_attributes, speechlet_response):
 def get_welcome_response():
     session_attributes = {}
     card_title = "Welcome"
-    speech_output = "Welcome to Sold Out.  Who's your favorite artist?" \
+    speech_output = "Discover which acts are selling out right now.  Just say, whos selling out right now"
 
     # If the user either does not reply to the welcome message or says something
     # that is not understood, they will be prompted again with this text.
-    reprompt_text = "Please tell me your favorite artist by saying, " \
-                    "my favorite artist is so-and-so."
+    reprompt_text = "Would you like to hear who's selling out? " \
+                    "Just say who's selling out"
     should_end_session = False
     return build_response(session_attributes, build_speechlet_response(
         card_title, speech_output, reprompt_text, should_end_session))
@@ -44,7 +44,8 @@ def get_welcome_response():
 def get_help_response():
     session_attributes = {}
     card_title = "Help"
-    speech_output = "Sold Out Help: If you'd like to hear the top sold out events, say sold out events." \
+    speech_output = "Help: If you'd like to hear the top sold out events, say sold out events, " \
+                    "Otherwise, say cancel to exit the skill."
 
     # If the user either does not reply to the welcome message or says something
     # that is not understood, they will be prompted again with this text.
@@ -104,8 +105,8 @@ def get_color_from_session(intent, session):
                         ". Goodbye."
         should_end_session = True
     else:
-        speech_output = "I'm not sure what your favorite color is. " \
-                        "You can say, my favorite color is red."
+        speech_output = "I'm not sure who your favorite artist is. " \
+                        "You can say, my favorite color is so-and-so."
         should_end_session = False
 
     # Setting reprompt_text to None signifies that we do not want to reprompt
