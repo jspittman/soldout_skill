@@ -80,10 +80,10 @@ def set_color_in_session(intent, session):
         favorite_color = intent['slots']['Color']['value']
         session_attributes = create_favorite_color_attributes(favorite_color)
         speech_output = favorite_color + " is selling out right now"
-        reprompt_text = "Say another name"
+        reprompt_text = "Say another name to continue."
     else:
-        speech_output = favorite_color + "is not selling out right now"
-        reprompt_text = "Say another name"
+        speech_output = "nope, not selling out"
+        reprompt_text = "Say another name to continue."
         
     return build_response(session_attributes, build_speechlet_response(
         card_title, speech_output, reprompt_text, should_end_session))
@@ -95,11 +95,12 @@ def get_color_from_session(intent, session):
 
     if session.get('attributes', {}) and "favoriteColor" in session.get('attributes', {}):
         favorite_color = session['attributes']['favoriteColor']
-        speech_output = favorite_color + "is not selling out right now"
+        speech_output = "nope, not selling out"
+        reprompt_text = "Say another name to continue."
         should_end_session = False
     else:
-        speech_output = "I'm not sure who your favorite artist is. " \
-                        "You can say, my favorite color is so-and-so."
+        speech_output = "nope, not selling out"
+        reprompt_text = "Say another name to continue."
         should_end_session = False
 
 
