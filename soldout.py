@@ -31,12 +31,12 @@ def build_response(session_attributes, speechlet_response):
 def get_welcome_response():
     session_attributes = {}
     card_title = "Welcome"
-    speech_output = "Discover which acts are selling out right now.  Just say, whos selling out right now"
+    speech_output = "Discover which acts are selling out right now.  Just say the name" \
+                    "of a band, artist, sports team, or broadway show"
 
     # If the user either does not reply to the welcome message or says something
     # that is not understood, they will be prompted again with this text.
-    reprompt_text = "Would you like to hear who's selling out? " \
-                    "Just say who's selling out"
+    reprompt_text = "Just say the name of a band, artist, sports team, or broadway show"
     should_end_session = False
     return build_response(session_attributes, build_speechlet_response(
         card_title, speech_output, reprompt_text, should_end_session))
@@ -44,8 +44,7 @@ def get_welcome_response():
 def get_help_response():
     session_attributes = {}
     card_title = "Help"
-    speech_output = "Help: If you'd like to hear the top sold out events, say sold out events, " \
-                    "Otherwise, say cancel to exit the skill."
+    speech_output = "Help: If you'd like to hear whos selling out, just say the name"
 
     # If the user either does not reply to the welcome message or says something
     # that is not understood, they will be prompted again with this text.
@@ -80,17 +79,12 @@ def set_color_in_session(intent, session):
     if 'Color' in intent['slots']:
         favorite_color = intent['slots']['Color']['value']
         session_attributes = create_favorite_color_attributes(favorite_color)
-        speech_output = "I now know your favorite artist is " + \
-                        favorite_color + \
-                        ". You can ask me your favorite artist by saying, " \
-                        "who's my favorite artist?"
-        reprompt_text = "You can ask me your favorite artist by saying, " \
-                        "who's my favorite artist?"
+        speech_output = favorite_color + "is selling out right now"
+        reprompt_text = "Say another name"
     else:
-        speech_output = "I'm not sure who your favorite artist is. " \
-                        "Please try again."
-        reprompt_text = "I'm not sure who your favorite artist is. " \
-                        "Please tell me who your favorite artsit is."
+        speech_output = favorite_color + "is not selling out right now"
+        reprompt_text = "Say another name"
+        
     return build_response(session_attributes, build_speechlet_response(
         card_title, speech_output, reprompt_text, should_end_session))
 
@@ -101,8 +95,7 @@ def get_color_from_session(intent, session):
 
     if session.get('attributes', {}) and "favoriteColor" in session.get('attributes', {}):
         favorite_color = session['attributes']['favoriteColor']
-        speech_output = "Your favorite artist is " + favorite_color + \
-                        ". Goodbye."
+        speech_output = "Your last searched was" + favoriteColor
         should_end_session = True
     else:
         speech_output = "I'm not sure who your favorite artist is. " \
