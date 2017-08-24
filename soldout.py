@@ -1,4 +1,4 @@
-from __future__ import print_functio
+from __future__ import print_function
 
 def build_speechlet_response(title, output, reprompt_text, should_end_session):
     return {
