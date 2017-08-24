@@ -95,7 +95,7 @@ def get_color_from_session(intent, session):
 
     if session.get('attributes', {}) and "favoriteColor" in session.get('attributes', {}):
         favorite_color = session['attributes']['favoriteColor']
-        speech_output = "Your last searched was" + favoriteColor
+        speech_output = "Your last searched was" + favorite_color
         should_end_session = True
     else:
         speech_output = "I'm not sure who your favorite artist is. " \
